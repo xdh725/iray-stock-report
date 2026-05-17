@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>奕瑞科技 (688301) 深度研究报告</title>
+    <style>
+        :root {
+            --bg-primary: #0a0c10;
+            --bg-secondary: #12151e;
+            --bg-card: #181c28;
+            --bg-card-alt: #1e2233;
+            --border: #262d42;
+            --border-light: #2e3650;
+            --text-primary: #e4e7ec;
+            --text-secondary: #94a0bb;
+            --text-muted: #5e6a82;
+            --accent-blue: #4f8ff7;
+            --accent-green: #22c993;
+            --accent-red: #f25c5c;
+            --accent-amber: #f0a828;
+            --accent-purple: #9366f5;
+            --accent-cyan: #1cc8d8;
+            --accent-pink: #e560a0;
+            --gradient-main: linear-gradient(135deg, #4f8ff7 0%, #9366f5 100%);
+            --gradient-green: linear-gradient(135deg, #22c993, #1aab7e);
+            --gradient-red: linear-gradient(135deg, #f25c5c, #d94040);
+            --gradient-warm: linear-gradient(135deg, #f0a828, #e88820);
+            --radius: 14px;
+            --radius-sm: 8px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        /* ===== Header ===== */
+        .report-header {
+            position: relative;
+            padding: 60px 0 48px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .report-header::before {
+            content: '';
+            position: absolute;
+            top: -80%; left: -30%; width: 160%; height: 200%;
+            background: radial-gradient(ellipse at 35% 60%, rgba(79,143,247,0.07), transparent 55%),
+                        radial-gradient(ellipse at 65% 60%, rgba(147,102,245,0.07), transparent 55%);
+        }
+        .report-header .stock-ticker {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .stock-ticker .name {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stock-ticker .code {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            padding: 4px 14px;
+            border-radius: 20px;
+            background: rgba(79,143,247,0.12);
+            color: var(--accent-blue);
+            border: 1px solid rgba(79,143,247,0.2);
+        }
+        .report-header .tagline {
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 24px;
+        }
+        .report-meta {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .report-meta .meta-item {
+            text-align: center;
+        }
+        .report-meta .meta-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .report-meta .meta-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* ===== Quick Score ===== */
+        .score-section {
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+        .score-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px 16px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .score-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+        }
+        .score-card.sc-green::after { background: var(--gradient-green); }
+        .score-card.sc-amber::after { background: var(--gradient-warm); }
+        .score-card.sc-red::after { background: var(--gradient-red); }
+        .score-card.sc-blue::after { background: var(--gradient-main); }
+        .score-card .sc-icon { font-size: 1.5rem; margin-bottom: 8px; }
+        .score-card .sc-dim { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; }
+        .score-card .sc-score {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .score-card .sc-desc { font-size: 0.75rem; color: var(--text-secondary); }
+        .score-green { color: var(--accent-green); }
+        .score-amber { color: var(--accent-amber); }
+        .score-red { color: var(--accent-red); }
+        .score-blue { color: var(--accent-blue); }
+
+        /* ===== Section ===== */
+        .section {
+            padding: 48px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-title {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title .st-icon {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 28px;
+        }
+
+        /* ===== Card ===== */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 20px;
+        }
+        .card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ===== Metric Row ===== */
+        .metric-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .metric-box {
+            background: rgba(255,255,255,0.02);
+            border-radius: var(--radius-sm);
+            padding: 18px;
+        }
+        .metric-box .mb-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .metric-box .mb-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        .metric-box .mb-sub {
+            font-size: 0.78rem;
+            margin-top: 2px;
+        }
+        .mb-positive { color: var(--accent-green); }
+        .mb-negative { color: var(--accent-red); }
+
+        /* ===== Table ===== */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }
+        .data-table thead th {
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 500;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+        }
+        .data-table tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .data-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+        /* ===== List ===== */
+        .info-list { list-style: none; }
+        .info-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            display: flex;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .info-list li:last-child { border-bottom: none; }
+        .li-dot {
+            flex-shrink: 0;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            margin-top: 8px;
+        }
+        .dot-green { background: var(--accent-green); }
+        .dot-blue { background: var(--accent-blue); }
+        .dot-amber { background: var(--accent-amber); }
+        .dot-red { background: var(--accent-red); }
+        .dot-purple { background: var(--accent-purple); }
+
+        /* ===== 2-col layout ===== */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* ===== Progress bar ===== */
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 6px;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        /* ===== Timeline ===== */
+        .timeline {
+            position: relative;
+            padding-left: 28px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px; top: 0; bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 24px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px; top: 6px;
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-blue);
+            background: var(--bg-primary);
+        }
+        .timeline-item .tl-date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .timeline-item .tl-content {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .timeline-item .tl-content strong { color: var(--text-primary); }
+
+        /* ===== Strategy Box ===== */
+        .strategy-box {
+            background: linear-gradient(135deg, rgba(79,143,247,0.06), rgba(147,102,245,0.06));
+            border: 1px solid rgba(79,143,247,0.15);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-top: 20px;
+        }
+        .strategy-box h3 {
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .strategy-step {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            text-align: center;
+        }
+        .strategy-step .step-num {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: var(--gradient-main);
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .strategy-step .step-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .strategy-step .step-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .strategy-note {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+        }
+        .strategy-note p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        .strategy-note p:last-child { margin-bottom: 0; }
+        .strategy-note strong { color: var(--text-primary); }
+
+        /* ===== Gauge Chart ===== */
+        .gauge-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .gauge-item {
+            text-align: center;
+        }
+        .gauge-item canvas {
+            display: block;
+            margin: 0 auto 8px;
+        }
+        .gauge-label {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== Footer ===== */
+        .report-footer {
+            padding: 40px 0;
+            text-align: center;
+        }
+        .report-footer p {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            line-height: 1.6;
+        }
+
+        /* ===== Badge ===== */
+        .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            font-weight: 600;
+        }
+        .tag-green { background: rgba(34,201,147,0.12); color: var(--accent-green); }
+        .tag-red { background: rgba(242,92,92,0.12); color: var(--accent-red); }
+        .tag-amber { background: rgba(240,168,40,0.12); color: var(--accent-amber); }
+        .tag-blue { background: rgba(79,143,247,0.12); color: var(--accent-blue); }
+        .tag-purple { background: rgba(147,102,245,0.12); color: var(--accent-purple); }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .score-grid { grid-template-columns: repeat(2, 1fr); }
+            .metric-row { grid-template-columns: repeat(2, 1fr); }
+            .two-col, .strategy-grid { grid-template-columns: 1fr; }
+            .stock-ticker .name { font-size: 1.6rem; }
+            .report-meta { gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header class="report-header">
+    <div class="container">
+        <div class="stock-ticker">
+            <span class="name">奕瑞科技</span>
+            <span class="code">SH 688301</span>
+        </div>
+        <p class="tagline">全球X射线探测器龙头 | 半导体检测 + 硅基OLED双轮驱动</p>
+        <div class="report-meta">
+            <div class="meta-item">
+                <div class="meta-label">最新市值</div>
+                <div class="meta-value">~248亿</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">PE (TTM)</div>
+                <div class="meta-value" style="color:var(--accent-green);">~38x</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">2025年净利润</div>
+                <div class="meta-value">6.50亿 <span class="tag tag-green">+39.7%</span></div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">评级</div>
+                <div class="meta-value" style="color:var(--accent-green);">积极看多</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">报告日期</div>
+                <div class="meta-value">2026年5月</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ===== Quick Score ===== -->
+<section class="score-section">
+    <div class="container">
+        <div class="score-grid">
+            <div class="score-card sc-green">
+                <div class="sc-icon">&#128200;</div>
+                <div class="sc-dim">基本面</div>
+                <div class="sc-score score-green">8.5</div>
+                <div class="sc-desc">业绩拐点确认，新业务放量</div>
+            </div>
+            <div class="score-card sc-green">
+                <div class="sc-icon">&#128176;</div>
+                <div class="sc-dim">估值</div>
+                <div class="sc-score score-green">7.5</div>
+                <div class="sc-desc">PE 38x处于合理区间</div>
+            </div>
+            <div class="score-card sc-amber">
+                <div class="sc-icon">&#128162;</div>
+                <div class="sc-dim">市场情绪</div>
+                <div class="sc-score score-amber">6.5</div>
+                <div class="sc-desc">关注度高，分歧犹存</div>
+            </div>
+            <div class="score-card sc-blue">
+                <div class="sc-icon">&#128167;</div>
+                <div class="sc-dim">资金面</div>
+                <div class="sc-score score-blue">7.0</div>
+                <div class="sc-desc">机构持续加仓，北向流入</div>
+            </div>
+            <div class="score-card sc-green">
+                <div class="sc-icon">&#127922;</div>
+                <div class="sc-dim">综合赔率</div>
+                <div class="sc-score score-green">7.5</div>
+                <div class="sc-desc">赔率>胜率，预期差待兑现</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 一、基本面 ===== -->
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <span class="st-icon" style="background:rgba(34,201,147,0.12);color:var(--accent-green);">1</span>
+            基本面分析
+        </div>
+        <p class="section-desc">全球X射线平板探测器龙头，20%+全球市占率，TOP3行业地位稳固</p>
+
+        <!-- 核心指标 -->
+        <div class="metric-row">
+            <div class="metric-box">
+                <div class="mb-label">2025年营收</div>
+                <div class="mb-value">22.51亿</div>
+                <div class="mb-sub mb-positive">+22.9% YoY</div>
+            </div>
+            <div class="metric-box">
+                <div class="mb-label">归母净利润</div>
+                <div class="mb-value">6.50亿</div>
+                <div class="mb-sub mb-positive">+39.7% YoY</div>
+            </div>
+            <div class="metric-box">
+                <div class="mb-label">毛利率</div>
+                <div class="mb-value">~42%</div>
+                <div class="mb-sub mb-positive">持续优化</div>
+            </div>
+            <div class="metric-box">
+                <div class="mb-label">研发费用率</div>
+                <div class="mb-value">15.09%</div>
+                <div class="mb-sub" style="color:var(--accent-blue);">3.40亿研发投入</div>
+            </div>
+        </div>
+
+        <div class="metric-row">
+            <div class="metric-box">
+                <div class="mb-label">经营现金流</div>
+                <div class="mb-value">13.02亿</div>
+                <div class="mb-sub mb-positive">+261% YoY</div>
+            </div>
+            <div class="metric-box">
+                <div class="mb-label">全球市占率</div>
+                <div class="mb-value">~20%</div>
+                <div class="mb-sub" style="color:var(--accent-purple);">TOP 3</div>
+            </div>
+            <div class="metric-box">
+                <div class="mb-label">分红方案</div>
+                <div class="mb-value">10元/10股</div>
+                <div class="mb-sub" style="color:var(--accent-amber);">分红率~32.5%</div>
+            </div>
+            <div class="metric-box">
+                <div class="mb-label">硅基OLED收入</div>
+                <div class="mb-value">0.56亿</div>
+                <div class="mb-sub" style="color:var(--accent-purple);">毛利率37.2%</div>
+            </div>
+        </div>
+
+        <!-- 业绩趋势 -->
+        <div class="card">
+            <h3>&#128202; 业绩趋势 (2020-2025)</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>年度</th>
+                        <th>营收 (亿元)</th>
+                        <th>同比</th>
+                        <th>净利润 (亿元)</th>
+                        <th>同比</th>
+                        <th>趋势</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2020</td><td>7.84</td><td class="mb-positive">-</td><td>2.22</td><td>-</td>
+                        <td><div class="progress-bar"><div class="progress-fill" style="width:35%;background:var(--gradient-main);"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td>2021</td><td>11.87</td><td class="mb-positive">+51.4%</td><td>3.42</td><td class="mb-positive">+54.1%</td>
+                        <td><div class="progress-bar"><div class="progress-fill" style="width:53%;background:var(--gradient-main);"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td>2022</td><td>13.17</td><td class="mb-positive">+11.0%</td><td>3.91</td><td class="mb-positive">+14.3%</td>
+                        <td><div class="progress-bar"><div class="progress-fill" style="width:58%;background:var(--gradient-main);"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td>2023</td><td>15.06</td><td class="mb-positive">+14.3%</td><td>3.97</td><td class="mb-positive">+1.5%</td>
+                        <td><div class="progress-bar"><div class="progress-fill" style="width:53%;background:var(--gradient-warm);"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td>2024</td><td>18.31</td><td class="mb-positive">+21.6%</td><td>4.65</td><td class="mb-positive">+17.1%</td>
+                        <td><div class="progress-bar"><div class="progress-fill" style="width:63%;background:var(--gradient-main);"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>2025</strong></td><td><strong>22.51</strong></td><td class="mb-positive"><strong>+22.9%</strong></td><td><strong>6.50</strong></td><td class="mb-positive"><strong>+39.7%</strong></td>
+                        <td><div class="progress-bar"><div class="progress-fill" style="width:88%;background:var(--gradient-green);"></div></div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 业务结构 -->
+        <div class="two-col">
+            <div class="card">
+                <h3>&#127919; 核心业务 - 传统X射线探测器</h3>
+                <ul class="info-list">
+                    <li><span class="li-dot dot-blue"></span>数字化X射线平板探测器(FPD)，覆盖医疗+工业+齿科</li>
+                    <li><span class="li-dot dot-blue"></span>产品线：TFT/CMOS/IGZO三种技术路线全覆盖</li>
+                    <li><span class="li-dot dot-blue"></span>从核心部件向"一站式X线影像解决方案"转型</li>
+                    <li><span class="li-dot dot-green"></span>全球化客户，海外收入占比持续提升</li>
+                    <li><span class="li-dot dot-green"></span>技术壁垒极高，国内领先，全球前三</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3 style="color:var(--accent-purple);">&#128640; 新增长曲线 - 半导体 + 硅基OLED</h3>
+                <ul class="info-list">
+                    <li><span class="li-dot dot-purple"></span><strong>先进封装检测</strong>：推出面向先进封装与多层PCB的平面CT检测系统</li>
+                    <li><span class="li-dot dot-purple"></span><strong>硅基OLED微显示背板</strong>：2025年实现收入0.56亿，毛利率37.2%</li>
+                    <li><span class="li-dot dot-purple"></span>自主研发微显示背板，最大已达1.4英寸</li>
+                    <li><span class="li-dot dot-purple"></span>深度绑定<strong>视涯科技</strong>，切入AI眼镜/VR供应链</li>
+                    <li><span class="li-dot dot-purple"></span>合肥fab厂提供半导体工艺理解深度</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 竞争优势 -->
+        <div class="card">
+            <h3>&#9879; 核心竞争壁垒</h3>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+                <div style="background:rgba(79,143,247,0.06);border-radius:var(--radius-sm);padding:20px;">
+                    <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:8px;">垂直整合能力</div>
+                    <div style="font-size:0.9rem;color:var(--text-secondary);">从核心材料→探测器模组→探测器整机的<strong style="color:var(--text-primary);">全产业链打通</strong></div>
+                </div>
+                <div style="background:rgba(147,102,245,0.06);border-radius:var(--radius-sm);padding:20px;">
+                    <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:8px;">全技术路线覆盖</div>
+                    <div style="font-size:0.9rem;color:var(--text-secondary);">TFT / CMOS / IGZO <strong style="color:var(--text-primary);">三种技术路线</strong>全球独家全覆盖</div>
+                </div>
+                <div style="background:rgba(34,201,147,0.06);border-radius:var(--radius-sm);padding:20px;">
+                    <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:8px;">自建Fab厂</div>
+                    <div style="font-size:0.9rem;color:var(--text-secondary);">合肥自有产线，对<strong style="color:var(--text-primary);">半导体工艺有极深理解</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 二、估值分析 ===== -->
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <span class="st-icon" style="background:rgba(79,143,247,0.12);color:var(--accent-blue);">2</span>
+            估值分析
+        </div>
+        <p class="section-desc">当前PE ~38x，处于历史相对合理区间；若半导体/OLED放量兑现，存在估值切换空间</p>
+
+        <div class="metric-row">
+            <div class="metric-box">
+                <div class="mb-label">PE (TTM)</div>
+                <div class="mb-value" style="color:var(--accent-green);">~38x</div>
+                <div class="mb-sub" style="color:var(--accent-green);">合理偏低</div>
+            </div>
+            <div class="metric-box">
+                <div class="mb-label">2026E净利润</div>
+                <div class="mb-value">8.08亿</div>
+                <div class="mb-sub mb-positive">+24.3%</div>
+            </div>
+            <div class="metric-box">
+                <div class="mb-label">2027E净利润</div>
+                <div class="mb-value">10.28亿</div>
+                <div class="mb-sub mb-positive">+27.2%</div>
+            </div>
+            <div class="metric-box">
+                <div class="mb-label">2028E净利润</div>
+                <div class="mb-value">12.21亿</div>
+                <div class="mb-sub mb-positive">+18.8%</div>
+            </div>
+        </div>
+
+        <div class="two-col">
+            <div class="card">
+                <h3>&#128200; 估值对比 - 同业横向比较</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>公司</th><th>PE (TTM)</th><th>行业</th><th>对比</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>奕瑞科技</strong></td>
+                            <td style="color:var(--accent-green);"><strong>~38x</strong></td>
+                            <td>X射线探测器</td>
+                            <td><span class="tag tag-green">低估</span></td>
+                        </tr>
+                        <tr>
+                            <td>日联科技</td>
+                            <td style="color:var(--accent-red);">~116x</td>
+                            <td>X射线检测设备</td>
+                            <td><span class="tag tag-red">高估</span></td>
+                        </tr>
+                        <tr>
+                            <td>半导体设备均值</td>
+                            <td>~53x</td>
+                            <td>半导体设备</td>
+                            <td><span class="tag tag-amber">参照</span></td>
+                        </tr>
+                        <tr>
+                            <td>医疗器械均值</td>
+                            <td>~35x</td>
+                            <td>医疗器械</td>
+                            <td><span class="tag tag-blue">当前定价</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card">
+                <h3>&#127919; 估值切换逻辑</h3>
+                <ul class="info-list">
+                    <li><span class="li-dot dot-blue"></span><strong>当前定价逻辑</strong>：市场仍主要按医疗器械股给估值（PE ~35-40x）</li>
+                    <li><span class="li-dot dot-purple"></span><strong>潜在切换方向</strong>：若半导体+OLED收入占比提升，可切换至半导体估值（PE ~50-60x）</li>
+                    <li><span class="li-dot dot-green"></span><strong>切换条件</strong>：半导体/OLED收入占比 > 15-20%，且持续2-3个季度高增长</li>
+                    <li><span class="li-dot dot-amber"></span><strong>目标空间</strong>：若切换至半导体估值，PE从38x→50x，股价空间 +30%+</li>
+                </ul>
+                <div style="margin-top:16px;background:rgba(34,201,147,0.06);border-radius:var(--radius-sm);padding:16px;">
+                    <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:6px;">估值切换测算</div>
+                    <div style="font-size:0.88rem;color:var(--text-secondary);">
+                        2026E净利润8.08亿 × 半导体PE 50x = <strong style="color:var(--accent-green);">目标市值 ~404亿</strong>
+                        vs 当前 ~248亿 = <strong style="color:var(--accent-green);">+63%空间</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 三、市场情绪 ===== -->
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <span class="st-icon" style="background:rgba(240,168,40,0.12);color:var(--accent-amber);">3</span>
+            市场情绪与催化剂
+        </div>
+        <p class="section-desc">AI眼镜+先进封装双重主题催化，市场关注度持续升温</p>
+
+        <div class="two-col">
+            <div class="card">
+                <h3>&#128293; 近期催化事件</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="tl-date">2025年</div>
+                        <div class="tl-content"><strong>官宣进入先进封装检测领域</strong> - 推出面向先进封装与多层PCB的平面CT检测系统</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="tl-date">2025年</div>
+                        <div class="tl-content"><strong>硅基OLED背板实现量产交付</strong> - 0.56亿收入，主要供货视涯科技</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="tl-date">2025年</div>
+                        <div class="tl-content"><strong>2025年报业绩超预期</strong> - 净利润+39.7%，现金流暴增261%</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="tl-date">展望</div>
+                        <div class="tl-content"><strong>合肥fab产能释放</strong> - 2026年硅基OLED背板收入指引>8亿</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="tl-date">展望</div>
+                        <div class="tl-content"><strong>AI眼镜/VR终端放量</strong> - 苹果、Meta等巨头推动行业爆发</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>&#128225; 市场关注焦点</h3>
+                <ul class="info-list">
+                    <li><span class="li-dot dot-green"></span><strong>AI眼镜概念</strong>：硅基OLED是AI眼镜核心显示方案，奕瑞作为背板供应商直接受益</li>
+                    <li><span class="li-dot dot-green"></span><strong>先进封装概念</strong>：从医疗切入半导体检测，存在估值切换预期差</li>
+                    <li><span class="li-dot dot-blue"></span><strong>业绩拐点确认</strong>：2025年利润增速(+40%)显著高于营收增速(+23%)，盈利能力改善</li>
+                    <li><span class="li-dot dot-amber"></span><strong>分歧点</strong>：硅基OLED收入占比仍低(2.5%)，半导体检测收入未单独披露</li>
+                    <li><span class="li-dot dot-amber"></span><strong>市场情绪</strong>：看多声音增多，但部分投资者对"故事vs现实"仍有疑虑</li>
+                </ul>
+                <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
+                    <span class="tag tag-green">AI眼镜</span>
+                    <span class="tag tag-purple">先进封装</span>
+                    <span class="tag tag-blue">业绩拐点</span>
+                    <span class="tag tag-amber">估值切换</span>
+                    <span class="tag tag-red">视涯科技供应链</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 四、资金面 ===== -->
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <span class="st-icon" style="background:rgba(147,102,245,0.12);color:var(--accent-purple);">4</span>
+            资金面分析
+        </div>
+        <p class="section-desc">机构持仓稳定，北向资金持续流入，筹码结构趋于集中</p>
+
+        <div class="metric-row">
+            <div class="metric-box">
+                <div class="mb-label">机构持仓</div>
+                <div class="mb-value" style="color:var(--accent-blue);">持续加仓</div>
+                <div class="mb-sub mb-positive">多只基金新进/增持</div>
+            </div>
+            <div class="metric-box">
+                <div class="mb-label">北向资金</div>
+                <div class="mb-value" style="color:var(--accent-green);">净流入</div>
+                <div class="mb-sub mb-positive">沪股通持续买入</div>
+            </div>
+            <div class="metric-box">
+                <div class="mb-label">融资余额</div>
+                <div class="mb-value">适中</div>
+                <div class="mb-sub" style="color:var(--text-muted);">未出现极端</div>
+            </div>
+            <div class="metric-box">
+                <div class="mb-label">股东人数</div>
+                <div class="mb-value">下降趋势</div>
+                <div class="mb-sub mb-positive">筹码趋于集中</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>&#128202; 券商评级与盈利预测</h3>
+            <table class="data-table">
+                <thead>
+                    <tr><th>指标</th><th>2025A</th><th>2026E</th><th>2027E</th><th>2028E</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>营收 (亿元)</td>
+                        <td><strong>22.51</strong></td>
+                        <td>~27-30</td>
+                        <td>~34-38</td>
+                        <td>~42-46</td>
+                    </tr>
+                    <tr>
+                        <td>归母净利润 (亿元)</td>
+                        <td><strong>6.50</strong></td>
+                        <td><strong>8.08</strong></td>
+                        <td><strong>10.28</strong></td>
+                        <td><strong>12.21</strong></td>
+                    </tr>
+                    <tr>
+                        <td>YoY增速</td>
+                        <td class="mb-positive">+39.7%</td>
+                        <td class="mb-positive">+24.3%</td>
+                        <td class="mb-positive">+27.2%</td>
+                        <td class="mb-positive">+18.8%</td>
+                    </tr>
+                    <tr>
+                        <td>对应PE</td>
+                        <td>~38x</td>
+                        <td>~31x</td>
+                        <td>~24x</td>
+                        <td>~20x</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="margin-top:12px;font-size:0.8rem;color:var(--text-muted);">
+                * 2026E合肥fab硅基OLED背板收入指引 > 8亿，若达成则净利润可能超预期
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 五、风险分析 ===== -->
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <span class="st-icon" style="background:rgba(242,92,92,0.12);color:var(--accent-red);">5</span>
+            风险分析
+        </div>
+        <p class="section-desc">核心风险聚焦于新业务兑现度和客户集中度</p>
+
+        <div class="two-col">
+            <div class="card">
+                <h3 style="color:var(--accent-red);">&#9888; 核心风险</h3>
+                <ul class="info-list">
+                    <li><span class="li-dot dot-red"></span><strong>硅基OLED放量不及预期</strong> - 当前仅0.56亿收入，距8亿指引差距大，若终端AI眼镜需求疲软则逻辑证伪</li>
+                    <li><span class="li-dot dot-red"></span><strong>客户集中度过高</strong> - 硅基OLED主要供货视涯科技，终端客户单一，存在订单波动风险</li>
+                    <li><span class="li-dot dot-amber"></span><strong>合肥fab折旧压力</strong> - 新产线固定资产大，折旧侵蚀利润，需高产能利用率对冲</li>
+                    <li><span class="li-dot dot-amber"></span><strong>半导体检测拓展不确定性</strong> - 从医疗跨入半导体，技术转化和客户开拓需要时间</li>
+                    <li><span class="li-dot dot-amber"></span><strong>地缘政治风险</strong> - 海外终端客户可能受出口管制影响</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3 style="color:var(--accent-green);">&#128170; 对冲因素</h3>
+                <ul class="info-list">
+                    <li><span class="li-dot dot-green"></span><strong>基本盘稳固</strong> - 传统X射线探测器业务全球前三，提供稳定现金流</li>
+                    <li><span class="li-dot dot-green"></span><strong>估值安全垫</strong> - PE 38x处于合理区间，即使新业务不兑现，下行空间有限</li>
+                    <li><span class="li-dot dot-green"></span><strong>技术壁垒极高</strong> - 医用X射线探测器门槛高，竞争格局稳定</li>
+                    <li><span class="li-dot dot-green"></span><strong>全产业链布局</strong> - 从材料到整机的垂直整合能力难以复制</li>
+                    <li><span class="li-dot dot-green"></span><strong>政策支持</strong> - 半导体设备国产替代是国家战略方向</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 六、操作策略 ===== -->
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <span class="st-icon" style="background:rgba(34,201,147,0.12);color:var(--accent-green);">6</span>
+            操作策略建议
+        </div>
+        <p class="section-desc">单票仓位上限30%，分批建仓 + 事件驱动加仓，中线持有为主</p>
+
+        <div class="strategy-box">
+            <h3>&#127919; 三阶段操作计划</h3>
+            <div class="strategy-grid">
+                <div class="strategy-step">
+                    <div class="step-num">1</div>
+                    <div class="step-title" style="color:var(--accent-blue);">底仓建立期</div>
+                    <div class="step-desc">
+                        建议仓位：10-15%<br>
+                        当前价格区间建底仓<br>
+                        不追高，利用回调分2-3批买入<br>
+                        关注PE 35x以下的安全区间
+                    </div>
+                </div>
+                <div class="strategy-step">
+                    <div class="step-num">2</div>
+                    <div class="step-title" style="color:var(--accent-purple);">加仓验证期</div>
+                    <div class="step-desc">
+                        建议仓位：15-25%<br>
+                        2026年中报验证OLED收入放量<br>
+                        若H1硅基OLED收入>3亿则加仓<br>
+                        半导体检测获大客户订单时加仓
+                    </div>
+                </div>
+                <div class="strategy-step">
+                    <div class="step-num">3</div>
+                    <div class="step-title" style="color:var(--accent-green);">目标兑现期</div>
+                    <div class="step-desc">
+                        建议仓位：动态调整<br>
+                        若估值切换兑现(PE>55x)开始减仓<br>
+                        若逻辑证伪(OLED收入<2亿)止损<br>
+                        目标市值：350-400亿区间
+                    </div>
+                </div>
+            </div>
+
+            <div class="strategy-note">
+                <p>&#128204; <strong>仓位纪律</strong>：单票仓位严格不超过30%，始终保留70%资金配置其他标的</p>
+                <p>&#128204; <strong>止损规则</strong>：若基本面逻辑发生重大变化（如硅基OLED订单大幅低于预期、半导体检测拓展失败），在亏损15%以内止损</p>
+                <p>&#128204; <strong>止盈策略</strong>：若市值达到350-400亿区间（PE 50-55x），分批止盈至少50%；剩余仓位跟踪持有</p>
+                <p>&#128204; <strong>关键观测指标</strong>：</p>
+                <p style="padding-left:20px;">1. 每季度硅基OLED背板收入（验证增长曲线是否成立）</p>
+                <p style="padding-left:20px;">2. 半导体检测客户订单（验证跨域拓展是否成功）</p>
+                <p style="padding-left:20px;">3. 合肥fab产能利用率（验证折旧压力是否可控）</p>
+                <p style="padding-left:20px;">4. AI眼镜终端出货量（验证下游需求是否爆发）</p>
+            </div>
+        </div>
+
+        <!-- 综合评分可视化 -->
+        <div style="margin-top:28px;">
+            <div class="card">
+                <h3>&#128202; 综合评分雷达图</h3>
+                <div style="text-align:center;margin:20px 0;">
+                    <canvas id="radarChart" width="440" height="440"></canvas>
+                    <div style="display:flex;justify-content:center;gap:24px;margin-top:12px;">
+                        <div style="display:flex;align-items:center;gap:6px;">
+                            <div style="width:12px;height:12px;border-radius:3px;background:var(--accent-blue);"></div>
+                            <span style="font-size:0.82rem;color:var(--text-secondary);">奕瑞科技</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:6px;">
+                            <div style="width:12px;height:12px;border-radius:3px;background:var(--accent-red);opacity:0.4;"></div>
+                            <span style="font-size:0.82rem;color:var(--text-secondary);">行业中位</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="report-footer">
+    <div class="container">
+        <p><strong>免责声明</strong>：本报告仅供研究参考，不构成任何投资建议。投资有风险，入市需谨慎。</p>
+        <p style="margin-top:6px;">数据来源：奕瑞科技2025年年报、券商研报、公开市场数据 | 报告生成日期：2026年5月17日</p>
+    </div>
+</footer>
+
+<script>
+const canvas = document.getElementById('radarChart');
+const ctx = canvas.getContext('2d');
+const W = 440, H = 440;
+const cx = W / 2, cy = H / 2;
+const maxR = 160;
+
+const dims = ['基本面', '估值', '情绪', '资金面', '催化剂', '安全边际'];
+const irayScores = [85, 75, 65, 70, 80, 72];
+const medianScores = [60, 55, 60, 55, 55, 50];
+
+function getPoint(i, val) {
+    const angle = -Math.PI / 2 + (2 * Math.PI / dims.length) * i;
+    const r = (maxR / 100) * val;
+    return [cx + r * Math.cos(angle), cy + r * Math.sin(angle)];
+}
+
+function drawArea(scores, fill, stroke) {
+    ctx.beginPath();
+    scores.forEach((s, i) => {
+        const [x, y] = getPoint(i, s);
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.closePath();
+    ctx.fillStyle = fill;
+    ctx.fill();
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    scores.forEach((s, i) => {
+        const [x, y] = getPoint(i, s);
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = stroke;
+        ctx.fill();
+    });
+}
+
+// Grid
+for (let lv = 1; lv <= 5; lv++) {
+    const r = (maxR / 5) * lv;
+    ctx.beginPath();
+    dims.forEach((_, i) => {
+        const [x, y] = getPoint(i, (r / maxR) * 100);
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.closePath();
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+}
+
+// Axes
+dims.forEach((_, i) => {
+    const [x, y] = getPoint(i, 100);
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(x, y);
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.stroke();
+});
+
+// Labels
+ctx.font = '13px -apple-system, sans-serif';
+ctx.fillStyle = '#94a0bb';
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+dims.forEach((label, i) => {
+    const [x, y] = getPoint(i, 118);
+    ctx.fillText(label, x, y);
+});
+
+// Data
+drawArea(medianScores, 'rgba(242,92,92,0.06)', 'rgba(242,92,92,0.3)');
+drawArea(irayScores, 'rgba(79,143,247,0.12)', 'rgba(79,143,247,0.8)');
+</script>
+
+</body>
+</html>
