@@ -1406,9 +1406,9 @@ const raw = [
 ["2026-05-15",133.00,141.30,8.80,6.64,129.90,144.89,126811,173986.69]
 ];
 
-// Parse data
+// Parse data: r[7] is volume (手), r[8] is turnover (万元)
 const data = raw.map(r => ({
-    date: r[0], open: +r[1], close: +r[2], low: +r[6], high: +r[7], vol: +r[8]
+    date: r[0], open: +r[1], close: +r[2], low: +r[6], high: +r[7], vol: +r[7]
 }));
 
 let currentRange = '6m';
@@ -1417,7 +1417,8 @@ const ctx = canvas.getContext('2d');
 const tooltip = document.getElementById('klineTooltip');
 let hoverIdx = -1;
 
-function setRange(r) {
+// Expose setRange globally for onclick handlers
+window.setRange = function(r) {
     currentRange = r;
     ['3m','6m','1y'].forEach(k => {
         const b = document.getElementById('btn'+k);
@@ -1425,7 +1426,7 @@ function setRange(r) {
         b.style.color = k===r ? 'var(--accent-blue)' : 'var(--text-secondary)';
     });
     draw();
-}
+};
 
 function getSliced() {
     const len = data.length;
@@ -1467,10 +1468,12 @@ function draw() {
     const pPad = (pMax - pMin) * 0.08;
     pMin -= pPad; pMax += pPad;
 
-    // Stats
+    // Stats - use actual data high/low, not padded range
+    let dHigh = -Infinity, dLow = Infinity;
+    d.forEach(k => { dHigh = Math.max(dHigh, k.high); dLow = Math.min(dLow, k.low); });
     document.getElementById('kLatest').textContent = d[d.length-1].close.toFixed(2);
-    document.getElementById('kHigh').textContent = pMax.toFixed(2);
-    document.getElementById('kLow').textContent = pMin.toFixed(2);
+    document.getElementById('kHigh').textContent = dHigh.toFixed(2);
+    document.getElementById('kLow').textContent = dLow.toFixed(2);
 
     const candleW = Math.max(1, chartW / d.length);
     const bodyW = Math.max(1, candleW * 0.65);
@@ -1500,7 +1503,7 @@ function draw() {
     d.forEach((k, i) => {
         const x = pad.left + candleW * i + candleW / 2;
         const up = k.close >= k.open;
-        const color = up ? '#22c993' : '#f25c5c';
+        const color = up ? '#f25c5c' : '#22c993'; // A股惯例: 红涨绿跌
 
         // Wick
         ctx.strokeStyle = color; ctx.lineWidth = 1;
@@ -1513,9 +1516,9 @@ function draw() {
         if (up) { ctx.fillRect(x - bodyW/2, top, bodyW, h); }
         else { ctx.fillRect(x - bodyW/2, top, bodyW, h); }
 
-        // Volume
+        // Volume - A股惯例: 红涨绿跌
         const vh = Math.max(1, volH * k.vol / vMax);
-        ctx.fillStyle = up ? 'rgba(34,201,147,0.35)' : 'rgba(242,92,92,0.35)';
+        ctx.fillStyle = up ? 'rgba(242,92,92,0.35)' : 'rgba(34,201,147,0.35)';
         ctx.fillRect(x - bodyW/2, volTop + volH - vh, bodyW, vh);
 
         // Hover highlight
@@ -1575,7 +1578,7 @@ canvas.addEventListener('mousemove', function(e) {
         tooltip.innerHTML = `
             <div style="color:var(--text-primary);font-weight:600;margin-bottom:4px;">${k.date}</div>
             <div>开盘: <span style="color:var(--text-primary);">${k.open.toFixed(2)}</span></div>
-            <div>收盘: <span style="color:${up?'var(--accent-green)':'var(--accent-red)'};">${k.close.toFixed(2)}</span></div>
+            <div>收盘: <span style="color:${up?'var(--accent-red)':'var(--accent-green)'};">${k.close.toFixed(2)}</span></div>
             <div>最高: <span style="color:var(--accent-red);">${k.high.toFixed(2)}</span></div>
             <div>最低: <span style="color:var(--accent-green);">${k.low.toFixed(2)}</span></div>
             <div>成交量: <span style="color:var(--text-primary);">${(k.vol/10000).toFixed(1)}万手</span></div>
